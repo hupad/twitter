@@ -1,0 +1,32 @@
+{% extends 'layouts/main.php.twig' %}
+
+{% block body %}
+
+    <h1 class="text-center">Sign Up !</h1>
+    <!-- Feature Content -->
+    <div class="row" style="padding: 20px;">
+      <div class="medium-12 column">
+        <form action="/public/index.php/sign_up" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword2">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword2" name="confirm_password" placeholder="Confirm Password">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div><!-- End Feature Content -->
+
+    
+{% endblock %}
+
+
+
+

@@ -1,0 +1,33 @@
+{% extends 'layouts/main.php.twig' %}
+
+{% block body %}
+    
+
+    <h1 class="text-center">Welcome to Twtter Clone.</h1>
+    <!-- Feature Content -->
+    <div class="row" style="padding: 20px;">
+      <div class="medium-12 column">
+      {% if error_message != '' %}
+        <h5 class="required text-center">
+            {{ error_message }}
+        </h5>
+      {% endif %}
+        <form action="/public/index.php/login" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+          </div>
+          <div style="padding-bottom: 20px;">
+            <a href="/public/index.php/sign_up">Create an account</a>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div><!-- End Feature Content -->
+
+{% endblock %}
+

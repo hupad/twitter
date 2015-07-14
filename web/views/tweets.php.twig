@@ -1,0 +1,25 @@
+{% extends 'layouts/main.php.twig' %}
+
+{% block body %}
+	
+	<form action="/public/index.php/tweets" method="POST">
+		<div class="row">
+			<div class="form-group">
+			<h4>Tweet here</h4>
+		    <input class="form-control input-lg" name="message" id="inputlg" type="text" placeholder="What's on your mind?">
+		    <button type="submit" class="btn btn-default">Post</button>
+		  	</div>
+		</div>
+
+		{% for tweet in tweets %}
+			<div class='row'>
+				<div class="panel panel-default">
+				  <div class="panel-body">
+				    {{ tweet.tweet }}
+				  </div>
+				</div>
+			</div>
+		{% endfor %}
+	</form>
+
+{% endblock %}
