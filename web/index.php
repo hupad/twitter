@@ -19,7 +19,6 @@ class TwitterApplication extends Application
 }
 
 $app = new TwitterApplication();
-
 $app['debug'] = true;
 
 /* 
@@ -29,8 +28,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/views',
 ));
 
-/*
-	Database registry.
+/* 
+    Doctrine Service Provider registry
 */
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
@@ -43,22 +42,10 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     )
 ));
 
-$app->register(new Silex\Provider\SessionServiceProvider());
-
-/*
-	Register security provider to handle authentication.
+/* 
+    Session Service Provider Registry
 */
-// $app->register(new Silex\Provider\SecurityServiceProvider(), array(
-//     'security.firewalls' => array(
-//     	'user' => array(
-//     		'pattern' => '^/login$',
-//     		'form' => array('login_path' => '/login', 'check_path' => '/user/login_check'),
-//     		'users' => array(
-
-//     		)
-//     	)
-//     )
-// ));
+$app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->error(function (\Exception $e, $code) use ($app) {
 	if ($app['debug']) {
