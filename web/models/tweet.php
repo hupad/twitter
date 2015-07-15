@@ -3,7 +3,7 @@
 namespace models;
 
 	/**
-	   * The Tweets models
+	   * The Tweets model
 	   *
 	   * @package models
 	*/
