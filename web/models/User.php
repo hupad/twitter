@@ -4,7 +4,7 @@ namespace models;
 
 
 	/**
-	   * The User model class.
+	   * This package is a simple abstraction class for User functions in the MySql database.
 	   *
 	   * @package models
 	*/

@@ -3,7 +3,7 @@
 namespace models;
 
 	/**
-	   * The Tweets model
+	   * This package is a simple abstraction class for Tweets functions in the MySql database.
 	   *
 	   * @package models
 	*/

@@ -29,6 +29,14 @@ h4 {
 	text-align: center;
 }
 
+.bottom-space{
+	padding-bottom: 20px;
+}
+
+.space{
+	padding: 20px;
+}
+
 .required{
 	color: red;
 }
