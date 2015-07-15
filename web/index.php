@@ -1,11 +1,7 @@
 <?php
-
-// web/index.php
 $loader = require_once '../vendor/autoload.php';
 $loader->add('models', __DIR__);
 $loader->add('controllers', __DIR__);
-
-//include __DIR__.'/controllers/UserController.php';
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;

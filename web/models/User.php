@@ -2,6 +2,12 @@
 
 namespace models;
 
+
+	/**
+	   * The User model class.
+	   *
+	   * @package models
+	*/
 class User
 {
 	public $email;
@@ -13,10 +19,20 @@ class User
 		$this->app = $app_variable;
 	}
 
+	/**
+	   * Authenticate user with email and password
+	   *
+	   * @return Array with user information  
+	*/
 	public function get(){
 		return $this->app['db']->fetchAssoc('SELECT * from user where email = ? and password = ?', array($this->email, $this->password));
 	}
 
+	/**
+	   * Creates a new user in the user table
+	   *
+	   * @return nothing
+	*/
 	public function save() {
 
 		$today = date("Y-m-d H:i:s");

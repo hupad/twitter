@@ -2,6 +2,11 @@
 	
 namespace models;
 
+	/**
+	   * The Tweets models
+	   *
+	   * @package models
+	*/
 class Tweet
 {
 	public $message;
@@ -13,6 +18,11 @@ class Tweet
 		$this->app = $app_variable;
 	}
 
+	/**
+	   * Saves the tweet/message posted by the user to the Tweets table.
+	   *
+	   * @return nothing
+	*/
 	public function save(){
 		$today = date("Y-m-d H:i:s");
 		$this->app['db']->insert(
@@ -21,6 +31,11 @@ class Tweet
 		);
 	}
 
+	/**
+	   * Fetches the list of all tweets posted by logged in user.
+	   *
+	   * @return list of all tweets by user
+	*/
 	public function get($user_id){
 		return $this->app['db']->fetchAll( 'SELECT * from tweets where user_id = ?', array($user_id) );
 	}
