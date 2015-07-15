@@ -55,7 +55,15 @@ $app->error(function (\Exception $e, $code) use ($app) {
 });
 
 $app->mount('/global', new GlobalController());
+/*
+    Ideally, I would like to Inject user object here into the controller
+    so that I am setting myself up for writing unit tests easily
+*/
 $app->mount('/user', new UserController());
+/*
+    Ideally, I would like to Inject the tweet object here into the controller
+    so that I am setting myself up for writing unit tests easily
+*/
 $app->mount('/message', new TweetController());
 
 $app->run();
