@@ -29,6 +29,7 @@ class Tweet
 			'tweets',
 			array('tweet' => $this->message, 'user_id' => $this->user_id, 'created_at' => $today, "updated_at" => $today)
 		);
+		return array('tweet' => $this->message, 'user_id' => $this->user_id, 'created_at' => $today, "updated_at" => $today);
 	}
 
 	/**

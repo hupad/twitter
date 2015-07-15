@@ -16,6 +16,7 @@
 	*/
 	class TweetController Implements ControllerProviderInterface
 	{
+        private $error_message = '';
 		/**
 	       * Connect function is used by Silex to mount the controller to the application.
 	       * Please list all routes inside here.
@@ -48,21 +49,25 @@
 			$tweet = new Tweet($app);
 			$user_tweets = $tweet->get( $user_id );
 
-			return $app->render('tweets.php.twig', array('tweets' => $user_tweets));
+			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $error_message));
     	}
 
     	public function create(Application $app, Request $request){
     		$message = $request->get('message');
 			$user_id = intval( $app['session']->get('user')['id'] );
 
-			$tweet = new Tweet($app);
-			$tweet->message = $message;
-			$tweet->user_id = $user_id;
+            if ( strlen($message) <= 140 ) {
+                $tweet = new Tweet($app);
+                $tweet->message = $message;
+                $tweet->user_id = $user_id;
+                $tweet->save();
 
-			$tweet->save();
-			$user_tweets = $tweet->get( intval($user_id) );
-
-			return $app->render('tweets.php.twig', array('tweets' => $user_tweets));
+                $user_tweets = $tweet->get( intval($user_id) );
+            }else{
+                $error_message = "Please limit the message to 140 charecters.";
+            }
+			
+			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $error_message));
     	}
 	}
 
