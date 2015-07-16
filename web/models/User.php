@@ -25,7 +25,10 @@ class User
 	   * @return Array with user information  
 	*/
 	public function get(){
-		return $this->app['db']->fetchAssoc('SELECT * from user where email = ? and password = ?', array($this->email, $this->password));
+		return $this->app['db']->fetchAssoc(
+			'SELECT * from user where email = ? and password = ?', 
+			array($this->email, $this->password)
+		);
 	}
 
 	/**
