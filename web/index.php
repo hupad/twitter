@@ -2,6 +2,7 @@
 $loader = require_once '../vendor/autoload.php';
 $loader->add('models', __DIR__);
 $loader->add('controllers', __DIR__);
+$loader->add('CRUD', __DIR__);
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;

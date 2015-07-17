@@ -65,21 +65,25 @@
 			* @return Nothing
     	*/
     	public function create_new_account(Application $app,Request $request){
+    		
     		$email = $request->get('email');
 			$password = $app->escape( $request->get('password') );
 			$confirm_password = $request->get('confirm_password');
 
 			 $user = new User($app);
-			 $user->email = $email;
-			 $user->password = md5($password);
-			 
 			 try{
-			 	$user->save();	
+			 	$user->save(
+			 		'user',
+			 		array(
+			 			'email' => $email,
+			 			'password' => md5($password)
+			 		)
+			 	);
 			 }catch(Exception $e){
 			 	 echo 'Caught exception: ',  $e->getMessage(), "\n";
 			 }
 
-			return $app->render('tweets.php.twig');
+			return $app->render('tweets.php.twig', array('error_message' => '', 'tweets' => [] ) );
     	}
 
     	/**
@@ -89,15 +93,22 @@
 			* @return Nothing
     	*/
     	public function authenticate(Application $app,Request $request){
+
     		$email = $request->get('email');
 			$password = $app->escape( $request->get('password') );
-
 			if ($email && $password) {
-				$user = new User($app);
-				$user->email = $email;
-				$user->password = md5($password);
 
-				$user_info = $user->get();
+				$user = new User($app);
+				$today = date("Y-m-d H:i:s");
+				$user_info = $user->find('user',
+					array(
+						'email' => $email, 
+						'password' => md5($password),
+						'create_at' => $today,
+						'updated_at' => $today
+					)
+				);
+
 				if ($user_info) {
 					$app['session']->set('user', array('id' => $user_info['id']));
 					return $app->redirect($request->getBaseUrl().'/message/tweets');
