@@ -47,9 +47,13 @@
     	public function get_user_tweets(Application $app, Request $request){
     		$user_id = intval( $app['session']->get('user')['id'] );
 			$tweet = new Tweet($app);
-			$user_tweets = $tweet->get( $user_id );
-
-			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $error_message));
+            $user_tweets = $tweet->find('tweets',
+                array(
+                    'user_id' => $user_id
+                )
+            );
+            echo var_dump($user_tweets);
+			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $this->error_message));
     	}
 
     	public function create(Application $app, Request $request){
@@ -58,16 +62,26 @@
 
             if ( strlen($message) <= 140 ) {
                 $tweet = new Tweet($app);
-                $tweet->message = $message;
-                $tweet->user_id = $user_id;
-                $tweet->save();
+                $tweet->save('tweets',
+                    array(
+                        'tweet' => $message,
+                        'user_id' => $user_id,
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s")
+                    )
+                );
 
-                $user_tweets = $tweet->get( intval($user_id) );
+            $user_tweets = $tweet->find('tweets',
+                array(
+                    'user_id' => $user_id
+                )
+            );
+            echo var_dump($user_tweets);
             }else{
                 $error_message = "Please limit the message to 140 charecters.";
             }
 			
-			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $error_message));
+			return $app->render('tweets.php.twig', array('tweets' => $user_tweets, 'error_message' => $this->error_message));
     	}
 	}
 

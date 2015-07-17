@@ -19,8 +19,19 @@
 		}
 
 		/**
+			* CREATE
 			* @param: 
-				* $sql: Main Sql query to be executed
+			*	. $table: Table from the database
+			*	. $values: Values to be inserted = of type ARRAY
+		*/
+		public function save($table, $values){
+			$this->_app['db']->insert($table, $values);
+		}
+
+		/**
+			* READ
+			* @param: 
+				* $table: Table from the database
 				* $where: Where clause, type Array
 		*/
 		public function find($table, $where){
@@ -40,21 +51,32 @@
 				$clause .= $key . ' = ? ';
 				array_push($values, $value);
 			}
-			echo var_dump($values);
-			return $this->_app['db']->fetchAssoc(
+			return $this->_app['db']->fetchArray(
 				"SELECT * from " . $table . " where " . $clause,
 				$values
 			);
 		}
-		
+
 		/**
+			* UPDATE
+			* @param: 
+			*	. $table: Table from the database
+			*	. $values: Values to be updated, type Array
+		*/
+		public function udpate(){
+			$this->_app['db']->update($table, $values);
+		}
+
+		/**
+			* DELETE
 			* @param: 
 			*	. $sql: Main Sql query to be executed
-			*	. $where: Where clause, type Array
+			*	. $values: Values to be inserted = of type ARRAY
 		*/
-		public function save($table, $values){
-			$this->_app['db']->insert($table, $values);
+		public function delete($table, $values){
+			$this->_app['db']->delete($table, $values);
 		}
+
 	}
 
 ?>

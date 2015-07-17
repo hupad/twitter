@@ -76,7 +76,9 @@
 			 		'user',
 			 		array(
 			 			'email' => $email,
-			 			'password' => md5($password)
+			 			'password' => md5($password),
+						'create_at' => date("Y-m-d H:i:s"),
+						'updated_at' => date("Y-m-d H:i:s")
 			 		)
 			 	);
 			 }catch(Exception $e){
@@ -96,21 +98,18 @@
 
     		$email = $request->get('email');
 			$password = $app->escape( $request->get('password') );
-			if ($email && $password) {
-
+			if ($email && $password) {	
 				$user = new User($app);
-				$today = date("Y-m-d H:i:s");
 				$user_info = $user->find('user',
 					array(
 						'email' => $email, 
 						'password' => md5($password),
-						'create_at' => $today,
-						'updated_at' => $today
 					)
 				);
-
 				if ($user_info) {
-					$app['session']->set('user', array('id' => $user_info['id']));
+					$app['session']->set('user', 
+						array('id' => $user_info[0])
+					);
 					return $app->redirect($request->getBaseUrl().'/message/tweets');
 				}else{
 					return $app->render('index.php.twig', array('error_message' => "Invalid Credentials. Please try again!"));
